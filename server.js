@@ -10,7 +10,13 @@ const data = require('./db/notes');
 app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
+  const sTerm = req.query.searchTerm;
+  console.info("this is console info: " + sTerm);
+  if (!sTerm) {
   res.json(data);
+  } else {
+  res.json(data.filter(item => item.title.includes(sTerm)));
+  }
 });
 
 app.get('/api/notes/:id', (req, res) => {
@@ -22,4 +28,3 @@ app.listen(8080, function() {
 }).on('error', err => {
   console.log(err);
 });
-
