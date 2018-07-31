@@ -11,11 +11,11 @@ app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
   const sTerm = req.query.searchTerm;
-  console.info("this is console info: " + sTerm);
+  console.info('this is console info: ' + sTerm);
   if (!sTerm) {
-  res.json(data);
+    res.json(data);
   } else {
-  res.json(data.filter(item => item.title.includes(sTerm)));
+    res.json(data.filter(item => item.title.includes(sTerm)));
   }
 });
 

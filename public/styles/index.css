@@ -5,10 +5,9 @@
 
 /* reset ul and li formatting */
 
-ul,
-li {
-  list-style-type: none;
+li, ul {
   list-style-position: inside;
+  list-style-type: none;
   margin: 0;
   padding: 0.1em;
 }
@@ -22,23 +21,23 @@ button {
 
 /* Make header sizes more sane */
 
-h1,
-h2,
-h3,
 h4 {
   margin: 0;
 }
 
 h1 {
   font-size: large;
+  margin: 0;
 }
 
 h2 {
   font-size: medium;
+  margin: 0;
 }
 
 h3 {
   font-size: small;
+  margin: 0;
 }
 
 
@@ -78,8 +77,8 @@ main nav ul:last-child {
 }
 
 main nav ul {
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
   width:250px;
 }
 
@@ -137,24 +136,24 @@ nav li {
 nav .name,
 nav .title {
   flex: 1;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 nav .metadata {
-  width:100%;
   display: flex;
   justify-content: space-between;
+  width:100%;
 }
 
 /***** STYLE *****/
 
 body>header,
 body>footer {
+  border: 0.1px solid #929fad;
   height: 3em;
   padding: 1em;
-  border: 0.1px solid #929fad;
 }
 
 nav header,
@@ -173,13 +172,13 @@ nav .title {
 
 nav .removeBtn {
   height: 18px;
-  width: 18px;
   margin: 5px;
+  width: 18px;
 }
 
 nav .metadata {
-  font-size: small;
   color: #b0b4b7;
+  font-size: small;
   margin: 5px;
 }
 
@@ -229,17 +228,17 @@ input,
 textarea,
 button {
   background-color: #4e565d;
-  color: #FFFFFF;
   border: 1px solid #929fad;
   border-radius: 4px;
+  color: #FFFFFF;
 }
 
 article input,
 article textarea,
 article button {
-  color: #FFFFFF;
   border: 1px solid #929fad;
   border-radius: 4px;
+  color: #FFFFFF;
 }
 
 a {
