@@ -14,21 +14,18 @@ const { requestLogger } = require('./middleware/logger');
 app.use(express.static('public'));
 app.use(requestLogger);
 
-app.get('/api/notes', (req, res) => {
-  const sTerm = req.query.searchTerm;
-  if (sTerm) {
-    res.json(data.filter(item => item.title.includes(sTerm)));
-  } else {
-    res.json(data);
-  }
+app.get('/api/notes', (req, res, next) => {
+  const { searchTerm } = req.query;
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(list);
+  });
 });
 
 app.get('/api/notes/:id', (req, res) => {
   res.json(data.find(item => item.id === Number(req.params.id)));
-});
-
-app.get('/boom', (req, res, next) => {
-  throw new Error('Boom!!');
 });
 
 app.use(function (req, res, next) {
