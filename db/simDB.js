@@ -100,7 +100,7 @@ const simDB = {
       }
     }, DELAY);
   }
-
+  
 };
 
 module.exports = Object.create(simDB);

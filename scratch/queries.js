@@ -5,11 +5,11 @@ const simDB = require('../db/simDB');
 const notes = simDB.initialize(data);
 
 
-// notes.delete(1009, (err) => {
-//   if (err) {
-//     console.error(err);
-//   }
-// });
+notes.delete(1009, (err) => {
+  if (err) {
+    console.error(err);
+  }
+});
 
 
 // GET Notes with search
