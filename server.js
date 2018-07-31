@@ -1,3 +1,5 @@
+/*jslint node: true*/
+/*jshint esversion: 6 */
 'use strict';
 
 // Load array of notes
@@ -11,11 +13,10 @@ app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
   const sTerm = req.query.searchTerm;
-  console.info('this is console info: ' + sTerm);
-  if (!sTerm) {
-    res.json(data);
-  } else {
+  if (sTerm) {
     res.json(data.filter(item => item.title.includes(sTerm)));
+  } else {
+    res.json(data);
   }
 });
 

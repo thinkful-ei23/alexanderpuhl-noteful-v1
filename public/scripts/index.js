@@ -1,4 +1,6 @@
-/* global $ noteful api store */
+/*jslint node: true*/
+/*jshint esversion: 6 */
+/* global $, document, noteful, api, store */
 'use strict';
 
 $(document).ready(function () {

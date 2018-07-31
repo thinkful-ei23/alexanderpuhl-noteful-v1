@@ -1,4 +1,7 @@
+/*jslint node: true*/
+/*jshint esversion: 6 */
 /* global $ */
+
 'use strict';
 
 const api = {

@@ -1,4 +1,7 @@
-/* global $ store api */
+/* global $, store, api */
+/*jslint node: true*/
+/*jshint esversion: 6 */
+
 'use strict';
 
 const noteful = (function () {
