@@ -13,7 +13,6 @@ const api = {
     });
   },
 
-
   details: function (id, callback) {
     $.ajax({
       type: 'GET',
