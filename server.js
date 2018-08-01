@@ -31,7 +31,7 @@ app.get('/api/notes/:id', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    return res.json(item);
+    res.json(item);
   });
 });
 
