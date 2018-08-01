@@ -14,6 +14,7 @@ const morgan = require('morgan');
 app.use(requestLogger);
 app.use(express.static('public'));
 app.use(express.json());
+app.use(morgan('common'));
 
 app.get('/api/notes', (req, res, next) => {
   const { searchTerm } = req.query;
