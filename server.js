@@ -12,8 +12,8 @@ const itemsRouter = require('./router/notes.router');
 // app.use(requestLogger);
 app.use(express.static('public'));
 app.use(express.json());
-app.use('/api/notes', itemsRouter);
 app.use(morgan('common'));
+app.use('/api/notes', itemsRouter);
 
 app.use(function (req, res, next) {
   const err = new Error('Not Found');
