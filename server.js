@@ -1,5 +1,4 @@
 'use strict';
-
 // Load array of notes
 const express = require('express');
 const app = express();
@@ -8,6 +7,7 @@ const simDB = require('./db/simDB');
 const notes = simDB.initialize(data);
 const { PORT } = require('./config');
 const { requestLogger } = require('./middleware/logger');
+const morgan = require('morgan');
 
 // INSERT EXPRESS APP CODE HERE...
 
@@ -72,10 +72,6 @@ app.use(function (err, req, res, next) {
     error: err
   });
 });
-
-
-
-
 
 app.listen(PORT, function() {
   console.info(`Server listening on ${this.address().port}`);
