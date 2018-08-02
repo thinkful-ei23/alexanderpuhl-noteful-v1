@@ -12,27 +12,25 @@ const api = {
     });
   },
 
-  details: function (id, callback) {
+  details: function (id) {
     $.ajax({
       type: 'GET',
       dataType: 'json',
       url: `/api/notes/${id}`,
-      success: callback
     });
   },
 
-  update: function (id, obj, callback) {
+  update: function (id, obj) {
     $.ajax({
       type: 'PUT',
       url: `/api/notes/${id}`,
       contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify(obj),
-      success: callback
     });
   },
 
-  create: function (obj, callback) {
+  create: function (obj) {
     $.ajax({
       type: 'POST',
       url: '/api/notes',
@@ -40,16 +38,14 @@ const api = {
       dataType: 'json',
       processData: false,
       data: JSON.stringify(obj),
-      success: callback
     });
   },
 
-  remove: function (id, callback) {
+  remove: function (id) {
     return $.ajax({
       type: 'DELETE',
       url: `/api/notes/${id}`,
       dataType: 'json',
-      success: callback
     });
   }
 
