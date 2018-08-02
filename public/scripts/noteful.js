@@ -4,10 +4,8 @@
 const noteful = (function () {
 
   function render() {
-
     const notesList = generateNotesList(store.notes, store.currentNote);
     $('.js-notes-list').html(notesList);
-
     const editForm = $('.js-note-edit-form');
     editForm.find('.js-note-title-entry').val(store.currentNote.title);
     editForm.find('.js-note-content-entry').val(store.currentNote.content);
@@ -39,9 +37,7 @@ const noteful = (function () {
   function handleNoteItemClick() {
     $('.js-notes-list').on('click', '.js-note-show-link', event => {
       event.preventDefault();
-
       const noteId = getNoteIdFromElement(event.currentTarget);
-
       api.details(noteId)
         .then(detailsResponse => {
           store.currentNote = detailsResponse;
@@ -53,10 +49,8 @@ const noteful = (function () {
   function handleNoteSearchSubmit() {
     $('.js-notes-search-form').on('submit', event => {
       event.preventDefault();
-
       const searchTerm = $('.js-note-search-entry').val();
       store.currentSearchTerm = searchTerm ? { searchTerm } : {};
-
       api.search(store.currentSearchTerm)
         .then(searchResponse => {
           store.notes = searchResponse;
@@ -68,77 +62,66 @@ const noteful = (function () {
   function handleNoteFormSubmit() {
     $('.js-note-edit-form').on('submit', function (event) {
       event.preventDefault();
-
       const editForm = $(event.currentTarget);
-
       const noteObj = {
         id: store.currentNote.id,
         title: editForm.find('.js-note-title-entry').val(),
         content: editForm.find('.js-note-content-entry').val()
       };
-
       if (noteObj.id) {
 
-        api.update(store.currentNote.id, noteObj, updateResponse => {
-          store.currentNote = updateResponse;
-
-          api.search(store.currentSearchTerm, searchResponse => {
+        api.update(store.currentNote.id, noteObj)
+          .then(updateResponse => {
+            store.currentNote = updateResponse;
+            return api.search(store.currentSearchTerm);
+          })
+          .then(searchResponse => {
             store.notes = searchResponse;
             render();
           });
-
-        });
-
       } else {
-
-        api.create(noteObj, createResponse => {
-          store.currentNote = createResponse;
-
-          api.search(store.currentSearchTerm, searchResponse => {
+        api.create(noteObj)
+          .then(createResponse => {
+            store.currentNote = createResponse;
+            return api.search(store.currentSearchTerm);
+          })
+          .then(searchResponse => {
             store.notes = searchResponse;
             render();
           });
-
-        });
       }
-
     });
   }
 
   function handleNoteStartNewSubmit() {
     $('.js-start-new-note-form').on('submit', event => {
       event.preventDefault();
-
       store.currentNote = {};
       render();
-
     });
   }
 
   function handleNoteDeleteClick() {
     $('.js-notes-list').on('click', '.js-note-delete-button', event => {
       event.preventDefault();
-
       const noteId = getNoteIdFromElement(event.currentTarget);
-
-      api.remove(noteId, () => {
-
-        api.search(store.currentSearchTerm, searchResponse => {
+      api.remove(noteId)
+        .then(() => {
+          return api.search(store.currentSearchTerm);
+        })
+        .then(searchResponse => {
           store.notes = searchResponse;
           if (noteId === store.currentNote.id) {
             store.currentNote = {};
           }
           render();
         });
-
-      });
     });
   }
 
   function bindEventListeners() {
     handleNoteItemClick();
     handleNoteSearchSubmit();
-
     handleNoteFormSubmit();
     handleNoteStartNewSubmit();
     handleNoteDeleteClick();
