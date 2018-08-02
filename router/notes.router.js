@@ -71,31 +71,33 @@ router.post('/', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-  notes.create(newItem, (err, item) => {
-    if (err) {
-      return next(err);
-    }
-    if (item) {
-      res.location(`http://${req.headers.host}/notes/${item.id}`).status(201).json(item);
-    } else {
-      next();
-    }
-  });
+  notes.create(newItem)
+    .then(item => {
+      if (item) {
+        res.location(`http://${req.headers.host}/notes/${item.id}`).status(201).json(item);
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
 
-  notes.delete(id, (err, item) => {
-    if (err) {
-      return next(err);
-    }
-    if (id) {
-      res.location(`http://${req.headers.host}/notes/${item.id}`).status(204).json('No Content');
-    } else {
-      next();
-    }
-  });
+  notes.delete(id)
+    .then(item => {
+      if (item) {
+        res.location(`http://${req.headers.host}/notes/${item.id}`).status(204).json('No Content');
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 
