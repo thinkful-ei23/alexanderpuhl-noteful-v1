@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const data = require('../db/notes');
-const simDB = require('../db/simDB');
+const data = require("../db/notes");
+const simDB = require("../db/simDB");
 const notes = simDB.initialize(data);
 
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
   const { searchTerm } = req.query;
   notes.filter(searchTerm)
     .then(list => {
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/:id', (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   const { id } = req.params;
   notes.find(id)
     .then(item => {
@@ -36,11 +36,11 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   /***** Never trust users - validate input *****/
   const updateObj = {};
-  const updateFields = ['title', 'content'];
+  const updateFields = ["title", "content"];
 
   updateFields.forEach(field => {
     if (field in req.body) {
@@ -49,7 +49,7 @@ router.put('/:id', (req, res, next) => {
   });
 
   if (req.body.title === "") {
-    const err = new Error('Missing `title` in request body');
+    const err = new Error("Missing `title` in request body");
     err.status = 400;
     return next(err);
   }
@@ -67,13 +67,13 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { title, content } = req.body;
 
   const newItem = { title, content };
 
   if (!newItem.title) {
-    const err = new Error('Missing `title` in request body');
+    const err = new Error("Missing `title` in request body");
     err.status = 400;
     return next(err);
   }
@@ -90,13 +90,13 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
   notes.delete(id)
     .then(item => {
       if (item) {
-        res.location(`http://${req.headers.host}/notes/${item.id}`).status(204).json('No Content');
+        res.location(`http://${req.headers.host}/notes/${item.id}`).status(204).json("No Content");
       } else {
         next();
       }
